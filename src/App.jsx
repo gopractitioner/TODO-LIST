@@ -1,13 +1,28 @@
 import "./styles.css"
+import { useEffect, useState } from 'react'
 
 function App() {
+  const [newItem, setNewItem] = useState('')
+  const [todos, setTodos] = useState([])
+  function handleSubmit(e) {
+    e.preventDefault()
 
+    setTodos([
+      ...todos,
+      { id: todos.length + 1, text: newItem, completed: false 
+    ])
+  }
+  console.log(todos)
   return (
     <>
-      <form className="new-item-form">
+      <form onSubmit={handleSubmit} className="new-item-form">
         <div className="form-row">
           <label htmlFor="new-item">New Item</label>
-          <input type="text" id="new-item" />
+          <input
+            value={newItem}
+            onChange={e => setNewItem(e.target.value)}
+            type="text" id="new-item"
+          />
         </div>
         <button className="btn">Add Item</button>
       </form>
